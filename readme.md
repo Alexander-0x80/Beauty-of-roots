@@ -11,8 +11,8 @@ __Example__: This is a plot of all roots with coefficents of [1 or -1] and degre
 * _roots.py_ - Generates NumPy array file with a hit map that should be used to draw the PNG .
 * _plot.py_ - Creates PNG file from the hit map .
 
-Generate hit map for polynomials with degree of 24 inside 512x512 array : 
->`python roots.py 24 512`
+Generate hit map for polynomials with degree of 14 inside 512x512 array : 
+>`python roots.py 14 512`
 
 >This will create _pointmap.npy_ file in your working directory . You should use it to produce a color image of the hits .
 
