@@ -8,14 +8,14 @@ __Example__: This is a plot of all roots with coefficents of [1 or -1] and degre
 ![roots](http://alexander-0x80.github.io/data/roots.png)
 
 ### How to use :
-* Run `roots.py` to generate NumPy array file with a hit map that should be used to draw the PNG .
-* Run `plot.py` to create PNG file from the hit map .
+* _roots.py_ - Generates NumPy array file with a hit map that should be used to draw the PNG .
+* _plot.py_ - Creates PNG file from the hit map .
 
 #### Example:
 Generate hit map for polynomials with degree of 24 inside 512x512 array : 
 >`python roots.py 24 512`
 
-This will create `pointmap.npy` file in your working directory . You should use it to produce a color image of the hits .
+This will create _pointmap.npy_ file in your working directory . You should use it to produce a color image of the hits .
 > `python plot.py pointmap.npy my_image.png`
 
 
