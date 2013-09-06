@@ -18,6 +18,8 @@ Generate hit map for polynomials with degree of 24 inside 512x512 array :
 This will create _pointmap.npy_ file in your working directory . You should use it to produce a color image of the hits .
 > `python plot.py pointmap.npy my_image.png`
 
-
 ### More info 
 http://mathworld.wolfram.com/PolynomialRoots.html
+
+### P.S 
+I encourage you to generate a big resolution image of the fractal, you should find a lot of interesting patters inside . 
