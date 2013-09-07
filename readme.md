@@ -8,7 +8,7 @@ __Example__: This is a plot of all roots with coefficents of [1 or -1] and degre
 ![roots](http://alexander-0x80.github.io/data/roots.png)
 
 ### How to use :
-* _roots.py_ - Generates NumPy that contains all generated roots .
+* _roots.py_ - Generates NumPy array file with all available roots .
 * _plot.py_ - Creates PNG image by creating a hit map from roots file .
 
 Generate all roots of polynomials with degree of 14 : 
