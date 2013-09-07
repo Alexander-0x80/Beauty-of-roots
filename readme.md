@@ -8,15 +8,15 @@ __Example__: This is a plot of all roots with coefficents of [1 or -1] and degre
 ![roots](http://alexander-0x80.github.io/data/roots.png)
 
 ### How to use :
-* _roots.py_ - Generates NumPy array file with a hit map that should be used to draw the PNG .
-* _plot.py_ - Creates PNG file from the hit map .
+* _roots.py_ - Generates NumPy that contains all generated roots .
+* _plot.py_ - Creates PNG image by creating a hit map from roots file .
 
-Generate hit map for polynomials with degree of 14 inside 512x512 array : 
->`python roots.py 14 512`
+Generate all roots of polynomials with degree of 14 : 
+>`python roots.py 14`
 
->This will create _pointmap.npy_ file in your working directory . You should use it to produce a color image of the hits .
+>This will create _pointmap.npy_ file in your working directory . You should use it to produce an image .
 
-> `python plot.py pointmap.npy my_image.png`
+> `python plot.py pointmap.npy my_image.png 1024`
 
 ### More info 
 http://mathworld.wolfram.com/PolynomialRoots.html
