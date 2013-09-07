@@ -8,12 +8,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument("degree", type=int, help="Polynomial degree")
 parser.add_argument("filename", type=str, default="pointmap.npy")
 args = parser.parse_args()
-
-degree = args.degree
 points = list()
 
 start_t = time()
-for poly in itertools.product(*([[-1, 1]] * degree)):
+for poly in itertools.product(*([[-1, 1]] * args.degree)):
     for root in np.roots((1,) + poly):
         points.append((root.real, root.imag))
 
