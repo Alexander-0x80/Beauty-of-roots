@@ -6,6 +6,7 @@ This script generates a fractal from polynomial roots . First time when i saw th
 __Example__: This is a plot of all roots with coefficents of [1 or -1] and degree of 24 .
 
 ![roots](http://alexander-0x80.github.io/data/roots.png)
+
 [3000x3000 Version here](http://rootdiver.deviantart.com/art/Beauty-of-roots-403576709)
 
 ### How to use :
