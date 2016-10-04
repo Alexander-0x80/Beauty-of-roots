@@ -1,42 +1,50 @@
-import argparse
-import colorsys
-from PIL import Image
-
 import numpy as np
+import matplotlib.pyplot as plt
+from argparse import ArgumentParser
+from tqdm import tqdm
 
-parser = argparse.ArgumentParser()
-parser.add_argument("file_in", type=str, help="NumPy array file", default="pointmap.npy")
-parser.add_argument("file_out", type=str, help="Output file name", default="fractal.png")
-parser.add_argument("size", type=int, help="Image size")
-args = parser.parse_args()
+x_max = 1.8
+x_min = -1.8
+y_max = 1.8
+y_min = -1.8
 
-size = args.size
-roots = np.load(args.file_in)
-hits = np.zeros((size, size), dtype=np.int)
-image = Image.new("RGB", (size, size))
 
-x_max = 1.5
-x_min = -1.5
-y_max = 1.5
-y_min = -1.5
+def heat_map(size, datafile):
+    img = np.zeros((size, size), dtype=np.float)
+    f = np.load(datafile, 'r')
 
-# Generate Hit map
-for root in roots:
-    point_x = (size - 1) * (root[0] - x_min) / (x_max - x_min)
-    point_y = (size - 1) * (root[1] - y_min) / (y_max - y_min)
-    if all([point_x >= 0,
-            point_x <= size - 1,
-            point_y >= 0,
-            point_y <= size - 1]):
-                hits[int(point_x)][int(point_y)] += 1
+    for root in tqdm(f):
+        point_x = (size - 1) * (root.real - x_min) / (x_max - x_min)   
+        point_y = (size - 1) * (root.imag - y_min) / (y_max - y_min)  
+        if all([point_x >= 0,
+                point_x <= size - 1,
+                point_y >= 0,
+                point_y <= size - 1]):
+            img[int(point_y)][int(point_x)] += 1
+    
+    log_max = np.log(np.amax(img))
+    ind = np.where(img > 0)
+    img[ind] = np.log(img[ind]) / log_max
+    return img
 
-# Plot hits on image
-max_hits = np.log(np.amax(hits))
-for xi, xd in enumerate(hits):
-    for yi, yd in enumerate(xd):
-        if yd > 0:
-            c_val = np.log(yd) / max_hits
-            r, g, b = colorsys.hsv_to_rgb(c_val / 2, 1 - c_val, 0.5 + c_val / 2)[:]
-            image.putpixel((xi, yi), (int(255 * r), int(255 * g), int(255 * b)))
 
-image.save(args.file_out, "PNG")
+def main():
+    parser = ArgumentParser()
+    parser.add_argument('-s', type=int, default=800,
+                        help='image size')      
+    parser.add_argument('data', type=str,
+                        help='roots data to be loaded')
+    parser.add_argument('-o', type=str, default='polyroots.png',
+                        help='output filename')                        
+    args = parser.parse_args()   
+    
+    img = heat_map(args.s, args.data)
+    fig = plt.figure(figsize=(args.s/100.0, args.s/100.0), dpi=100)
+    ax = fig.add_axes([0, 0, 1, 1], aspect=1)
+    ax.axis('off')
+    ax.imshow(img, cmap='afmhot')
+    fig.savefig(args.o)
+    
+    
+if __name__ == '__main__':
+    main()

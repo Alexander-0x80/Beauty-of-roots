@@ -1,21 +1,34 @@
-import itertools
-import argparse
-from time import time
-
 import numpy as np
+from itertools import product
+from tqdm import tqdm
+from argparse import ArgumentParser
 
-parser = argparse.ArgumentParser()
-parser.add_argument("degree", type=int, help="Polynomial degree")
-parser.add_argument("filename", type=str, default="pointmap.npy")
-args = parser.parse_args()
-points = list()
 
-start_t = time()
-for poly in itertools.product(*([[-1, 1]] * args.degree)):
-    for root in np.roots((1,) + poly):
-        points.append((root.real, root.imag))
+def save_roots(degree, datafile):
+    total_polys = 2**degree
+    roots = np.zeros((total_polys, degree)).astype(np.complex)
+    
+    with open(datafile, 'w') as f:  
+        for k, poly in enumerate(tqdm(product(*([[-1, 1]] * degree)),
+                                      total=total_polys,
+                                      unit=' polys')):
+            roots[k] =  np.roots((1,) + poly)
+        np.save(f, roots.ravel())
+    
+def main():    
+    parser = ArgumentParser()
+    parser.add_argument('-d', type=int, default=18,
+                        help='polynomial degree')
+    parser.add_argument('-f', type=str, default='data.npy',
+                        help='output filename')                        
+    args = parser.parse_args()
+    
+    save_roots(args.d, args.f)
+    
 
-roots_data = np.array(points, dtype=np.float64)
-print "Complete in {} seconds.".format(str(int(time() - start_t)))
-with open(args.filename, "w") as out_file:
-    np.save(out_file, roots_data)
+if __name__ == '__main__':
+    main()
+
+    
+                        
+            
