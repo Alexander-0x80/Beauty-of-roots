@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from argparse import ArgumentParser
-
+from tqdm import tqdm
 
 x_max = 1.8
 x_min = -1.8
