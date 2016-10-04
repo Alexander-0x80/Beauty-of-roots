@@ -1,9 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.colors import hsv_to_rgb
-from PIL import Image
 from argparse import ArgumentParser
-from tqdm import tqdm
 
 
 x_max = 1.8
@@ -42,9 +39,6 @@ def main():
     args = parser.parse_args()   
     
     img = heat_map(args.s, args.data)
-    #with open('img.npy', 'w') as f:
-    #   np.save(f, img)
-    #img = np.load('img.npy', 'r') 
     fig = plt.figure(figsize=(args.s/100.0, args.s/100.0), dpi=100)
     ax = fig.add_axes([0, 0, 1, 1], aspect=1)
     ax.axis('off')
